@@ -29,6 +29,8 @@ import { AdminOrdersComponent } from "./admin/admin-orders/admin-orders.componen
 import { LoginComponent } from "./login/login.component";
 import { AuthService } from "./auth.service";
 import { ProductFormComponent } from "./admin/product-form/product-form.component";
+import { ProductFilterComponent } from './products/product-filter/product-filter.component';
+import { ProductCardComponent } from './product-card/product-card.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { ProductFormComponent } from "./admin/product-form/product-form.componen
     AdminProductsComponent,
     AdminOrdersComponent,
     LoginComponent,
-    ProductFormComponent
+    ProductFormComponent,
+    ProductFilterComponent,
+    ProductCardComponent
   ],
   imports: [
     NgbModule,
@@ -56,7 +60,7 @@ import { ProductFormComponent } from "./admin/product-form/product-form.componen
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     RouterModule.forRoot([
-      { path: "", component: HomeComponent },
+      { path: "", component: ProductsComponent },
       { path: "products", component: ProductsComponent },
       { path: "shopping-cart", component: ShoppingCartComponent },
       { path: "login", component: LoginComponent },

@@ -21,7 +21,7 @@ export class ProductFormComponent implements OnInit {
     private categoryService: CategoryService,
     private productService: ProductService
   ) {
-    this.categories$ = categoryService.getCategories();
+    this.categories$ = categoryService.getAll();
 
     this.id = this.route.snapshot.paramMap.get("id");
     if (this.id)
@@ -29,6 +29,7 @@ export class ProductFormComponent implements OnInit {
         .get(this.id)
         .valueChanges()
         .subscribe(p => (this.product = p));
+    console.log(this.categories$);
   }
 
   save(product) {

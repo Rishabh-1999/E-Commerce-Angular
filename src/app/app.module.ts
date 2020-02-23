@@ -1,3 +1,5 @@
+import { ProductService } from "./product.service";
+import { CategoryService } from "./category.service";
 import { AdminAuthGuard } from "./admin-auth-guard.service";
 import { AuthGuard } from "./auth-guard.service";
 import { RouterModule } from "@angular/router";
@@ -7,6 +9,9 @@ import { NgModule } from "@angular/core";
 import { AngularFireModule } from "angularfire2";
 import { AngularFireDatabaseModule } from "angularfire2/database";
 import { AngularFireAuthModule } from "angularfire2/auth";
+import { FormsModule } from "@angular/forms";
+import { CustomFormsModule } from "ngx-custom-validators";
+import { DataTableModule } from "angular5-data-table";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -23,6 +28,7 @@ import { AdminProductsComponent } from "./admin/admin-products/admin-products.co
 import { AdminOrdersComponent } from "./admin/admin-orders/admin-orders.component";
 import { LoginComponent } from "./login/login.component";
 import { AuthService } from "./auth.service";
+import { ProductFormComponent } from "./admin/product-form/product-form.component";
 
 @NgModule({
   declarations: [
@@ -36,10 +42,14 @@ import { AuthService } from "./auth.service";
     MyOrdersComponent,
     AdminProductsComponent,
     AdminOrdersComponent,
-    LoginComponent
+    LoginComponent,
+    ProductFormComponent
   ],
   imports: [
     NgbModule,
+    FormsModule,
+    CustomFormsModule,
+    DataTableModule,
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -66,7 +76,16 @@ import { AuthService } from "./auth.service";
         component: MyOrdersComponent,
         canActivate: [AuthGuard]
       },
-
+      {
+        path: "admin/products/new",
+        component: ProductFormComponent,
+        canActivate: [AuthGuard, AdminAuthGuard]
+      },
+      {
+        path: "admin/products/:id",
+        component: ProductFormComponent,
+        canActivate: [AuthGuard, AdminAuthGuard]
+      },
       {
         path: "admin/products",
         component: AdminProductsComponent,
@@ -79,7 +98,13 @@ import { AuthService } from "./auth.service";
       }
     ])
   ],
-  providers: [AuthService, AuthGuard, AdminAuthGuard],
+  providers: [
+    AuthService,
+    AuthGuard,
+    AdminAuthGuard,
+    CategoryService,
+    ProductService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

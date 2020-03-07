@@ -4,7 +4,7 @@
   </div>
   <div class="col">
     <div class="row" *ngIf="cart$ | async as cart">
-      <ng-container *ngFor="let p of products;let i = index">
+      <ng-container *ngFor="let p of filteredProduct;let i = index">
         <div class="col">
           <product-card [product]="p" [shopping-cart]="cart"></product-card>
         </div>
